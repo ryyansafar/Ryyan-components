@@ -105,8 +105,6 @@ const HB_MAX  = 1.2;  // hover blur max      — blur on buttons/links
 
 ---
 
----
-
 ## noise-overlay
 
 Film-grain noise rendered on a `<canvas>` element fixed over the entire page. Adds tactile, cinematic texture to any UI. Configurable opacity, grain size, animation speed, and CSS blend mode. Zero dependencies.

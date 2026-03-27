@@ -47,11 +47,11 @@ export default function NoiseOverlay({
     let mw = 0, mh = 0, img: ImageData | null = null, frame = 0;
 
     function resize() {
-      mw = main!.width  = window.innerWidth;
-      mh = main!.height = window.innerHeight;
+      mw = main.width  = window.innerWidth;
+      mh = main.height = window.innerHeight;
       small.width  = Math.ceil(mw / grain);
       small.height = Math.ceil(mh / grain);
-      img = sctx!.createImageData(small.width, small.height);
+      img = sctx.createImageData(small.width, small.height);
     }
 
     function tick() {
@@ -66,7 +66,7 @@ export default function NoiseOverlay({
           d[--i] = v;
           d[--i] = v;
         }
-        sctx!.putImageData(img, 0, 0);
+        sctx.putImageData(img, 0, 0);
         mctx.clearRect(0, 0, mw, mh);
         mctx.drawImage(small, 0, 0, mw, mh);
       }
