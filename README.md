@@ -105,6 +105,99 @@ const HB_MAX  = 1.2;  // hover blur max      — blur on buttons/links
 
 ---
 
+---
+
+## noise-overlay
+
+Film-grain noise rendered on a `<canvas>` element fixed over the entire page. Adds tactile, cinematic texture to any UI. Configurable opacity, grain size, animation speed, and CSS blend mode. Zero dependencies.
+
+**Features**
+- Canvas API — zero dependencies, no SVG, no CSS hacks
+- Two-canvas technique — low-res noise scaled up for chunky grain
+- Configurable blend mode — `overlay`, `screen`, `soft-light`, `multiply`
+- Speed control — refresh every N frames for slower, flickery grain
+- Touch-safe — `pointer-events: none` so it never blocks interaction
+
+---
+
+### Vanilla JS (any project)
+
+Copy `noise-overlay.js` into your project and drop this before `</body>`:
+
+```html
+<script src="noise-overlay.js"></script>
+```
+
+Edit the four constants at the top of the file to customise:
+
+```js
+const OPACITY = 0.12;       // canvas opacity 0–1
+const GRAIN   = 1;          // pixel block size (1 = per-px, 2 = 2×2, etc.)
+const SPEED   = 1;          // refresh every N frames
+const BLEND   = 'overlay';  // CSS mix-blend-mode
+```
+
+---
+
+### Next.js (App Router)
+
+Copy `noise-overlay.js` → `/public/noise-overlay.js`, then in `app/layout.tsx`:
+
+```tsx
+import Script from 'next/script';
+
+export default function RootLayout({ children }) {
+  return (
+    <html lang="en">
+      <body>
+        {children}
+        <Script src="/noise-overlay.js" strategy="afterInteractive" />
+      </body>
+    </html>
+  );
+}
+```
+
+---
+
+### React Component
+
+Copy `noise-overlay.tsx` into your components folder and render it once at the root:
+
+```tsx
+import NoiseOverlay from '@/components/noise-overlay';
+
+export default function App() {
+  return (
+    <>
+      <YourContent />
+      <NoiseOverlay opacity={0.12} grain={1} speed={1} blend="overlay" />
+    </>
+  );
+}
+```
+
+**Props**
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `opacity` | `number` | `0.12` | Canvas opacity, 0–1. |
+| `grain` | `number` | `1` | Pixel block size. 1 = finest, 8 = chunky. |
+| `speed` | `number` | `1` | Refresh every N frames. 1 = every frame. |
+| `blend` | `string` | `'overlay'` | CSS `mix-blend-mode`. |
+| `zIndex` | `number` | `9998` | CSS `z-index`. |
+
+**Blend mode guide**
+
+| Mode | Effect |
+|------|--------|
+| `overlay` | Classic film grain — most natural |
+| `screen` | Light, airy texture |
+| `multiply` | Dark, grungy feel |
+| `soft-light` | Subtle, gentle grain |
+
+---
+
 ## More components
 
 More coming soon — star this repo to follow along.
